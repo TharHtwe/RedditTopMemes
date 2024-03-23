@@ -1,0 +1,59 @@
+﻿<div [@routerTransition]>
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12 col-md-6">
+            <h1>{{ "Top 20 Memes on Reddit" | localize }}</h1>
+        </div>
+        <div class="col-12 col-md-6 text-right">
+          <a href="javascript:;" class="btn bg-blue mr-2" (click)="createTopMeme()">
+              <i class="fa fa-plus-square"></i>
+              {{ "Get Current Top 20" | localize }}
+          </a>
+          <a href="javascript:;" class="btn bg-blue" (click)="sendToTelegram()">
+              <i class="fa fa-file-export"></i>
+              {{ "Send to Telegram" | localize }}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="content px-2">
+      <div class="container-fluid">
+        <div class="row" *ngIf="topMeme && topMeme.topMemeItems;else noResult">
+          <div class="col-md-4 offset-md-4">
+            <div class="row" *ngFor="let item of topMeme.topMemeItems; let i = index">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-header">
+                    <a href="{{ getUrl(item) }}" target="_blank">
+                      <div class="row">
+                        <div class="col-auto">
+                          <h5 class="card-title">{{ i + 1 + ' . ' }}</h5>
+                        </div>
+                        <div class="col">
+                          <h5 class="card-title">{{ item.title }}</h5>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="card-body m-0 p-0">
+                    <img class="card-img" src="{{ item.url }}" alt="{{ item.title }}">
+                  </div>
+                  <div class="card-footer">
+                    <button class="btn btn-primary" (click)="showRankHistoryDialog(item.memeId)">
+                      {{ 'Rank Histories' | localize }}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <ng-template #noResult>
+          <p *ngIf="!initializing">No memes to show. Please try crawl new list.</p>
+        </ng-template>  
+      </div>
+  </section>
+</div>

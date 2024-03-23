@@ -1,0 +1,19 @@
+﻿<form
+  class="form-horizontal"
+  (ngSubmit)="bsModalRef.hide()"
+>
+  <abp-modal-header
+    [title]="'Rank Histories' | localize"
+    (onCloseClick)="bsModalRef.hide()"
+  ></abp-modal-header>
+  <div class="modal-body">
+    <span>Posted : {{ postedDate }}</span>
+    <div class="chart-container">
+      <canvas id="MyChart" >{{ chart }}</canvas>
+    </div>
+  </div>
+  <abp-modal-footer
+    [cancelHidden]="true"
+    saveLabel="{{ 'Close' | localize }}"
+  ></abp-modal-footer>
+</form>
